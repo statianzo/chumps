@@ -1,0 +1,76 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+body {
+    font-family: 'PT Sans', sans-serif;
+    
+    min-height: 740px;
+
+    background: rgb(215, 215, 215);
+    background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 500, from(rgb(180, 180, 180)), to(rgb(130, 130, 130)));
+    background: -webkit-radial-gradient(rgb(100, 130, 180), rgb(60, 100, 130));
+    background:    -moz-radial-gradient(rgb(100, 130, 180), rgb(60, 100, 130));
+    background:      -o-radial-gradient(rgb(100, 130, 180), rgb(60, 100, 130));
+    background:         radial-gradient(rgb(100, 130, 180), rgb(60, 100, 130));
+
+    -webkit-font-smoothing: antialiased;
+}
+
+.step {
+    width: 900px;
+    padding: 40px;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing:    border-box;
+    -ms-box-sizing:     border-box;
+    -o-box-sizing:      border-box;
+    box-sizing:         border-box;
+
+    font-family: 'PT Sans', georgia, serif;
+
+    font-size: 60px;
+}
+
+.step {
+    -webkit-transition: opacity 1s;
+    -moz-transition:    opacity 1s;
+    -ms-transition:     opacity 1s;
+    -o-transition:      opacity 1s;
+    transition:         opacity 1s;
+}
+
+.step:not(.active) {
+    opacity: 0.2;
+}
+
+#live-data-title { font-size:80px; }
+
+.big { text-transform: uppercase; margin: 0; padding: 0; }
+.bold { font-weight: 800; }
+.light { font-weight: 500; }
+.title { font-size: 200px; }
+#title { font-size: 110px; }
+#title-polling { font-size: 200px; }
