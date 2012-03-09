@@ -66,11 +66,24 @@ body {
     opacity: 0.2;
 }
 
+.section-start { font-size: 40px; }
 #live-data-title { font-size:80px; }
 
+
+pre {
+  font-family: mono;
+  font-size: 30px;
+}
+code {
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
 .big { text-transform: uppercase; margin: 0; padding: 0; }
 .bold { font-weight: 800; }
 .light { font-weight: 500; }
 .title { font-size: 200px; }
+.subtitle { font-size: 100px; }
+#ajax-process { font-size: 80px; }
+img { display: block; }
 #title { font-size: 110px; }
 #title-polling { font-size: 200px; }

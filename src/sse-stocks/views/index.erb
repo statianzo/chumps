@@ -1,0 +1,30 @@
+<h1>Stocks!</h1>
+<table>
+  <tr><td>Name</td><td>Price</td></tr>
+  <% stocks.each do |name, value| %>
+    <tr>
+      <td><%= name %></td>
+      <td id="<%= "#{name}-value" %>"><%= value %></td>
+    </tr>
+  <% end %>
+</table>
+
+<script>
+  (function(getEl){
+    var stocks = ['<%= stocks.keys.join("','")%>'],
+    es = new EventSource('/stream'),
+    register = function(key){
+      var el = getEl(key + '-value');
+      es.addEventListener(key, function(e) {
+        el.innerText = e.data;
+      }, false);
+    };
+
+    for(var i=0; i < stocks.length; i++) {
+      register(stocks[i]);
+    }
+
+    //Unnamed messages
+    es.onmessage = function(e) { console.log(e) };
+  })(function(id){return document.getElementById(id)});
+</script>

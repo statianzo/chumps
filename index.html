@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=1024" />
     <title>Polling Is For Chumps</title>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
-    <link href="style.css" rel="stylesheet" />
-  </head>
+    <link href="style.css" rel="stylesheet" /> </head>
+    <link href="default.css" rel="stylesheet" />
   <body>
     <div id="impress">
       <div id="title" class="step slide" data-x="0" data-y="0" data-scale="3">
@@ -17,7 +17,7 @@
       </div>
 
 
-      <div id="live-data" class="step slide" data-x="1800" data-y="0" data-scale="1">
+      <div id="live-data" class="step slide" data-x="1800" data-y="0">
         <div class="big bold" id="live-data-title">Live Data</div>
         <div class="light">
           <div id="live-data-text1">Social Networking</div>
@@ -27,18 +27,75 @@
         </div>
       </div>
 
-      <div id="ajax-title" class="step" data-x="-800" data-y="700" data-scale="1">
+      <div id="ajax-title" class="step section-start" data-x="-800" data-y="700">
         <div class="big bold title">AJAX</div>
+        <div>Asynchronus Javascript and XML</div>
+      </div>
+
+      <div id="ajax-setinterval" class="step" data-x="-1000" data-y="1000" data-scale="0.3">
+        <img src="images/phone.jpg" />
+        <q class="big bold subtitle">Hello?</q>
+      </div>
+
+      <div id="ajax-process" class="step" data-x="-1000" data-y="1180" data-scale="0.3">
+        <div>Wait An Interval</div>
+        <div>Call Service</div>
+        <div>Receive Response</div>
+        <div>Hang Up</div>
+        <div>Repeat</div>
+      </div>
+
+      <div id="ajax-code" class="step" data-x="-1000" data-y="1310" data-scale="0.3">
+        <pre>
+        <code>
+var timeout = 5000;
+setInterval(function(){
+  $.getJSON('home.json', function(data) {
+      //Update View
+  });
+}, timeout);
+        </code>
+        </pre>
+      </div>
+
+      <div id="ajax-simple" class="step title bold" data-x="-1000" data-y="1400" data-scale="0.3">Simple</div>
+      <div id="ajax-complex" class="step" data-x="-1000" data-y="1700" data-scale="1">
+        <div class="bold subtitle">Complexity Grows</div>
+        <div>Multiple Data Points</div>
+        <div>Partial Data Sets</div>
+        <div>Self Built DoS Attack</div>
       </div>
 
 
-
-      <div id="serversent-title" class="step" data-x="0" data-y="700" data-scale="1">
+      <div id="serversent-title" class="step section-start" data-x="0" data-y="700">
         <div class="big bold title">SSE</div>
+        <div>Server-Sent Events</div>
       </div>
 
-      <div id="websockets-title" class="step" data-x="800" data-y="700" data-scale="1">
+      <div id="serversent-photo" class="step" data-x="-280" data-y="1000" data-scale="0.3">
+        <img src="images/radio.jpg" />
+        <q class="big bold subtitle">The Listener</q>
+      </div>
+
+      <div id="serversent-process" class="step" data-x="-280" data-y="1180" data-scale="0.3">
+        <div>Opens a vanilla HTTP Request</div>
+        <div>Subscribe to Events</div>
+        <div>Callbacks Are Triggered</div>
+      </div>
+
+      <div id="serversent-client" class="step" data-x="-1000" data-y="1310" data-scale="0.3">
+        <pre>
+        <code>
+var es = new EventSource('/stream');
+es.onmessage = function(e) { $('#chat').append(e.data + "\n") };
+es.addEventListener('dance', function(e) { });
+        </code>
+        </pre>
+      </div>
+
+      <div id="websockets-title" class="step section-start" data-x="800" data-y="700">
         <div class="big bold title">WS</div>
+        <div>WebSockets</div>
       </div>
 
       <div id="setinterval" class="step" data-x="2000" data-y="0" data-scale="1">
@@ -47,8 +104,12 @@
       </div>
     </div>
 
+    <script src="lib/highlight.pack.js"></script>
     <script src="lib/impress.js"></script>
-    <script>impress();</script>
+    <script>
+      hljs.initHighlightingOnLoad();
+      impress();
+    </script>
 
   </body>
 </html>
