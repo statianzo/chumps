@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=1024" />
     <title>Polling Is For Chumps</title>
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:regular,semibold,italic,italicsemibold|PT+Sans:400,700,400italic,700italic|PT+Serif:400,700,400italic,700italic" rel="stylesheet" />
-    <link href="style.css" rel="stylesheet" /> </head>
-    <link href="default.css" rel="stylesheet" />
+    <link href="styles/main.css" rel="stylesheet" /> </head>
+    <link href="styles/highlight.css" rel="stylesheet" />
   <body>
     <div id="impress">
       <div id="title" class="step slide" data-x="0" data-y="0" data-scale="3">
@@ -83,7 +83,7 @@ setInterval(function(){
         <div>Callbacks Are Triggered</div>
       </div>
 
-      <div id="serversent-client" class="step" data-x="-1000" data-y="1310" data-scale="0.3">
+      <div id="serversent-client" class="step" data-x="-280" data-y="1310" data-scale="0.3">
         <pre>
         <code>
 var es = new EventSource('/stream');
@@ -108,8 +108,14 @@ es.addEventListener('dance', function(e) { });
     <script src="lib/impress.js"></script>
     <script>
       hljs.initHighlightingOnLoad();
-      impress();
+      window.api = impress();
     </script>
+    <% if master %>
+      <script src="lib/zepto.min.js"></script>
+      <script src="lib/master.js"></script>
+    <% else %>
+      <script src="lib/viewer.js"></script>
+    <% end %>
 
   </body>
 </html>
