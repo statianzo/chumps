@@ -112,3 +112,4 @@ a:hover { color: #444444; background: #EEEEEE; }
 img { display: block; }
 #title { font-size: 110px; }
 #title-polling { font-size: 200px; }
+#follow-along { font-size: 20px; text-transform: none; float: right;}
