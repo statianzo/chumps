@@ -4,27 +4,30 @@
   <% stocks.each do |name, value| %>
     <tr>
       <td><%= name %></td>
-      <td id="<%= "#{name}-value" %>"><%= value %></td>
+      <td id="<%= "#{name.downcase}-price" %>"><%= value %></td>
     </tr>
   <% end %>
 </table>
+<h2>Latest Notification</h2>
+<p id="notify" >None</p>
 
 <script>
-  (function(getEl){
-    var stocks = ['<%= stocks.keys.join("','")%>'],
-    es = new EventSource('/stream'),
-    register = function(key){
-      var el = getEl(key + '-value');
-      es.addEventListener(key, function(e) {
-        el.innerText = e.data;
-      }, false);
+  (function($){
+    var es = new EventSource('/stocks');
+
+    es.addEventListener('AAPL', function(e) {
+      $('#aapl-price').innerText = e.data;
+    });
+
+    es.addEventListener('MSFT', function(e) {
+      $('#msft-price').innerText = e.data;
+    });
+
+    //Notice that GOOG doesn't update
+    //Because we didn't subscribe
+
+    es.onmessage = function(e) {
+      $('#notify').innerText = e.data;
     };
-
-    for(var i=0; i < stocks.length; i++) {
-      register(stocks[i]);
-    }
-
-    //Unnamed messages
-    es.onmessage = function(e) { console.log(e) };
-  })(function(id){return document.getElementById(id)});
+  })(function(id){return document.getElementById(id.replace('#',''))});
 </script>

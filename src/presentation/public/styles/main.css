@@ -77,11 +77,29 @@ pre {
 code {
   -moz-border-radius: 15px;
   border-radius: 15px;
+  -moz-box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  -webkit-box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  -o-box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
 }
+
+#serversent-server pre {
+  font-size: 24px;
+}
+a {
+  text-decoration: none;
+  color: #222222;
+  background: #CCCCCC;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 3px;
+}
+a:hover { text-decoration: underline; }
+#serversent-polyfill a { font-size:24px; }
 .big { text-transform: uppercase; margin: 0; padding: 0; }
 .bold { font-weight: 800; }
 .light { font-weight: 500; }
-.title { font-size: 200px; }
+.header { font-size: 200px; }
 .subtitle { font-size: 100px; }
 #ajax-process { font-size: 80px; }
 img { display: block; }

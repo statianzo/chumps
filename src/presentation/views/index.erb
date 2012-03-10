@@ -28,7 +28,7 @@
       </div>
 
       <div id="ajax-title" class="step section-start" data-x="-800" data-y="700">
-        <div class="big bold title">AJAX</div>
+        <div class="big bold header">AJAX</div>
         <div>Asynchronus Javascript and XML</div>
       </div>
 
@@ -58,7 +58,7 @@ setInterval(function(){
         </pre>
       </div>
 
-      <div id="ajax-simple" class="step title bold" data-x="-1000" data-y="1400" data-scale="0.3">Simple</div>
+      <div id="ajax-simple" class="step header bold" data-x="-1000" data-y="1400" data-scale="0.3">Simple</div>
       <div id="ajax-complex" class="step" data-x="-1000" data-y="1700" data-scale="1">
         <div class="bold subtitle">Complexity Grows</div>
         <div>Multiple Data Points</div>
@@ -68,7 +68,7 @@ setInterval(function(){
 
 
       <div id="serversent-title" class="step section-start" data-x="0" data-y="700">
-        <div class="big bold title">SSE</div>
+        <div class="big bold header">SSE</div>
         <div>Server-Sent Events</div>
       </div>
 
@@ -77,24 +77,120 @@ setInterval(function(){
         <q class="big bold subtitle">The Listener</q>
       </div>
 
-      <div id="serversent-process" class="step" data-x="-280" data-y="1180" data-scale="0.3">
-        <div>Opens a vanilla HTTP Request</div>
-        <div>Subscribe to Events</div>
-        <div>Callbacks Are Triggered</div>
+      <div id="serversent-vanilla" class="step big bold header" data-x="-280" data-y="1180" data-scale="0.3">
+        Vanilla HTTP
       </div>
 
-      <div id="serversent-client" class="step" data-x="-280" data-y="1310" data-scale="0.3">
+      <div id="serversent-request" class="step" data-x="-280" data-y="1290" data-scale="0.2">
         <pre>
-        <code>
-var es = new EventSource('/stream');
-es.onmessage = function(e) { $('#chat').append(e.data + "\n") };
-es.addEventListener('dance', function(e) { });
-        </code>
+        <code>GET /stocks HTTP/1.1
+Connection: keep-alive
+Accept: text/event-stream</code>
         </pre>
       </div>
 
+      <div id="serversent-response" class="step" data-x="-280" data-y="1390" data-scale="0.2">
+        <pre>
+        <code>HTTP/1.1 200 OK
+Content-Type: text/event-stream
+
+name: AAPL
+data: 507.03
+
+data: Sell!
+
+name: GOOG
+data: 27.13
+
+...
+
+data: Buy!</code>
+        </pre>
+      </div>
+
+      <div id="serversent-server" class="step" data-x="-280" data-y="1550" data-scale="0.2">
+        <pre>
+        <code>@@streams = []
+@@price = 500.0
+
+get '/stocks', provides: 'text/event-stream' do
+  stream :keep_open do |out|
+    @@streams.push(out)
+    out.callback { @@streams.delete(out) }
+  end
+end
+
+def notify(data, name=nil)
+  @@streams.each do |out|
+    out << "event: #{name}\n" if name
+    out << "data: #{data}\n\n"
+  end
+end
+
+Thread.new do
+  while true
+    sleep rand(2)
+    notify((@@price += rand(3)), 'AAPL')
+    notify(rand(2) == 1 ? 'Buy!' : 'Sell!')
+  end
+end </code>
+        </pre>
+      </div>
+
+      <div id="serversent-subscribe" class="step big bold header" data-x="-280" data-y="1650" data-scale="0.3">
+        Subscribe
+      </div>
+
+      <div id="serversent-client" class="step" data-x="-280" data-y="1740" data-scale="0.2">
+        <pre>
+        <code>var es = new EventSource('/stocks');
+
+//Named Events
+es.addEventListener('AAPL', function(e) {
+  $('#aapl-price').innerText = e.data;
+});
+
+//Unnamed Events
+es.onmessage = function(e) {
+  $('#notify').innerText = e.data;
+};</code>
+        </pre>
+      </div>
+
+      <div id="serversent-perks" class="step big bold header" data-x="-280" data-y="1830" data-scale="0.3">
+        Perks
+      </div>
+
+      <div id="serversent-immediate" class="step" data-x="-280" data-y="1890" data-scale="0.2">
+        <div class="big bold subtitle">Immediate</div>
+      </div>
+
+      <div id="serversent-persistent" class="step" data-x="-280" data-y="1950" data-scale="0.2">
+        <div class="big bold subtitle">Persistent</div>
+        <img src="images/sse-persist.png" />
+      </div>
+
+      <div id="serversent-compatible" class="step" data-x="-280" data-y="2030" data-scale="0.2">
+        <div class="big bold subtitle">Compatible</div>
+        <img src="images/compatible.png" />
+      </div>
+
+      <div id="serversent-quirks" class="step big bold header" data-x="-280" data-y="1830" data-scale="0.3">
+        Pains
+      </div>
+
+      <div id="serversent-polyfill" class="step" data-x="-240" data-y="2050" data-z="-2000" data-scale="0.02">
+        <div class="big bold subtitle">Javascript Polyfill</div>
+        <img src="images/incompatible.png" />
+        <a href="https://github.com/Yaffle/EventSource">Yaffle/EventSource</a>
+        <a href="https://github.com/remy/polyfills/blob/master/EventSource.js">remy/pollyfills</a>
+        </ul>
+      </div>
+
+
+
       <div id="websockets-title" class="step section-start" data-x="800" data-y="700">
-        <div class="big bold title">WS</div>
+        <div class="big bold header">WS</div>
         <div>WebSockets</div>
       </div>
 
