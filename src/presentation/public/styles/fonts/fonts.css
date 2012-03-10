@@ -1,0 +1,95 @@
+@font-face {
+    font-family: 'PT Sans';
+    src: url('PTS76F-webfont.eot');
+    src: url('PTS76F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('PTS76F-webfont.woff') format('woff'),
+         url('PTS76F-webfont.ttf') format('truetype'),
+         url('PTS76F-webfont.svg#PTSansBoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'PT Sans';
+    src: url('PTS75F-webfont.eot');
+    src: url('PTS75F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('PTS75F-webfont.woff') format('woff'),
+         url('PTS75F-webfont.ttf') format('truetype'),
+         url('PTS75F-webfont.svg#PTSansBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'PT Sans';
+    src: url('PTS56F-webfont.eot');
+    src: url('PTS56F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('PTS56F-webfont.woff') format('woff'),
+         url('PTS56F-webfont.ttf') format('truetype'),
+         url('PTS56F-webfont.svg#PTSansItalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'PT Sans';
+    src: url('PTS55F-webfont.eot');
+    src: url('PTS55F-webfont.eot?#iefix') format('embedded-opentype'),
+         url('PTS55F-webfont.woff') format('woff'),
+         url('PTS55F-webfont.ttf') format('truetype'),
+         url('PTS55F-webfont.svg#PTSansRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Cousine';
+    src: url('Cousine-Regular-Latin-webfont.eot');
+    src: url('Cousine-Regular-Latin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Cousine-Regular-Latin-webfont.woff') format('woff'),
+         url('Cousine-Regular-Latin-webfont.ttf') format('truetype'),
+         url('Cousine-Regular-Latin-webfont.svg#CousineRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Cousine';
+    src: url('Cousine-Italic-Latin-webfont.eot');
+    src: url('Cousine-Italic-Latin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Cousine-Italic-Latin-webfont.woff') format('woff'),
+         url('Cousine-Italic-Latin-webfont.ttf') format('truetype'),
+         url('Cousine-Italic-Latin-webfont.svg#CousineItalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'Cousine';
+    src: url('Cousine-Bold-Latin-webfont.eot');
+    src: url('Cousine-Bold-Latin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Cousine-Bold-Latin-webfont.woff') format('woff'),
+         url('Cousine-Bold-Latin-webfont.ttf') format('truetype'),
+         url('Cousine-Bold-Latin-webfont.svg#CousineBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'Cousine';
+    src: url('Cousine-BoldItalic-Latin-webfont.eot');
+    src: url('Cousine-BoldItalic-Latin-webfont.eot?#iefix') format('embedded-opentype'),
+         url('Cousine-BoldItalic-Latin-webfont.woff') format('woff'),
+         url('Cousine-BoldItalic-Latin-webfont.ttf') format('truetype'),
+         url('Cousine-BoldItalic-Latin-webfont.svg#CousineBoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+
+}

@@ -24,20 +24,23 @@ time, mark, audio, video {
     vertical-align: baseline;
 }
 
+
 body {
-    font-family: 'PT Sans', sans-serif;
-    
-    min-height: 740px;
+  pointer-events: none;
+  font-family: 'PT Sans', sans-serif;
+  min-height: 740px;
 
-    background: rgb(215, 215, 215);
-    background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 500, from(rgb(180, 180, 180)), to(rgb(130, 130, 130)));
-    background: -webkit-radial-gradient(rgb(100, 130, 180), rgb(60, 100, 130));
-    background:    -moz-radial-gradient(rgb(100, 130, 180), rgb(60, 100, 130));
-    background:      -o-radial-gradient(rgb(100, 130, 180), rgb(60, 100, 130));
-    background:         radial-gradient(rgb(100, 130, 180), rgb(60, 100, 130));
+  background: rgb(215, 215, 215);
+  background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 500, from(rgb(180, 180, 180)), to(rgb(130, 130, 130)));
+  background: -webkit-radial-gradient(rgb(100, 130, 180), rgb(60, 100, 130));
+  background:    -moz-radial-gradient(rgb(100, 130, 180), rgb(60, 100, 130));
+  background:      -o-radial-gradient(rgb(100, 130, 180), rgb(60, 100, 130));
+  background:         radial-gradient(rgb(100, 130, 180), rgb(60, 100, 130));
 
-    -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
 }
+
+#impress { pointer-events: auto; }
 
 .step {
     width: 900px;
@@ -71,7 +74,7 @@ body {
 
 
 pre {
-  font-family: monospace;
+  font-family: 'Cousine', 'Monaco', 'Courier New',  monospace;
   font-size: 30px;
 }
 code {
@@ -86,6 +89,10 @@ code {
 #serversent-server pre {
   font-size: 24px;
 }
+
+#websockets-response pre {
+  font-size: 26px;
+}
 a {
   text-decoration: none;
   color: #222222;
@@ -94,7 +101,7 @@ a {
   border-radius: 5px;
   padding: 3px;
 }
-a:hover { text-decoration: underline; }
+a:hover { color: #444444; background: #EEEEEE; }
 #serversent-polyfill a { font-size:24px; }
 .big { text-transform: uppercase; margin: 0; padding: 0; }
 .bold { font-weight: 800; }
