@@ -1,12 +1,12 @@
 <h1>Stocks!</h1>
-
-<% stocks.each do |name, value| %>
-<h2><%= name %></h2>
-<div id="<%= "#{name.downcase}-price" %>"><%= value %></div>
-<div id="<%= "#{name.downcase}" %>"></div>
-<% end %>
-<h2>Latest Notification</h2>
 <p id="notify" >None</p>
+<div id="stocks">
+  <% stocks.each do |name, value| %>
+    <h2><%= name %></h2>
+    <div class="value" id="<%= "#{name.downcase}-price" %>"><%= value %></div>
+    <div class="chart" id="<%= "#{name.downcase}" %>"></div>
+  <% end %>
+</div>
 
 <script>
   (function($){
@@ -32,6 +32,7 @@
 
     es.onmessage = function(e) {
       $('#notify').innerText = e.data;
+      $('#notify').className = e.data.toLowerCase();
     };
 
     function initChart(id, yMax) {

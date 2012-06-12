@@ -4,6 +4,7 @@ Thread.abort_on_exception = true
 
 set server: 'thin',
     conns: [],
+    public_folder: File.dirname(__FILE__) + '/public',
     stocks: {AAPL: 500.0, MSFT: 30.0, GOOG: 600.0}
 
 get '/' do
