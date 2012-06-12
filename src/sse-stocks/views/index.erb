@@ -17,24 +17,9 @@
       , msft= initChart('#msft', 100)
 
 
-    es.addEventListener('AAPL', function(e) {
-      $('#aapl-price').innerText = e.data;
+    es.addEventListener('AAPL', createListener(aapl));
 
-      aapl.data.length === max && aapl.data.shift();
-      aapl.data.push({ data: e.data, time: ++aapl.time});
-      redrawChart(aapl);
-    });
-
-    es.addEventListener('MSFT', function(e) {
-      var point = e.data;
-      if(point < 0) {
-        point = point * -1;
-      }
-      $('#msft-price').innerText = point;
-      msft.data.length === max && msft.data.shift();
-      msft.data.push({ data: point, time: ++msft.time});
-      redrawChart(msft);
-    });
+    es.addEventListener('MSFT', createListener(msft));
 
     //Notice that GOOG doesn't update
     //Because we didn't subscribe
@@ -42,6 +27,17 @@
     es.onmessage = function(e) {
       $('#notify').innerText = e.data;
     };
+
+    function createListener(chart) {
+      var el = $(chart.id + '-price');
+      return function(e) {
+        var point = Math.abs(e.data);
+        el.innerText = point;
+        chart.data.length === max && chart.data.shift();
+        chart.data.push({ data: point, time: ++chart.time});
+        redrawChart(chart);
+      };
+    }
 
     function initChart(id, yMax) {
        var chart = d3.select(id).append("svg")
@@ -52,6 +48,7 @@
         , y = d3.scale.linear().domain([0, yMax]).rangeRound([0, 140]);
 
         return { 
+          id: id,
           chart: chart,
           x: x,
           y: y,
