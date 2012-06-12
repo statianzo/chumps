@@ -113,3 +113,4 @@ img { display: block; }
 #title { font-size: 110px; }
 #title-polling { font-size: 200px; }
 #follow-along { font-size: 2.3em; font-weight: bold; }
+.example-link { font-size: 12px; }
