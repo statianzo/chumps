@@ -1,26 +1,39 @@
 <h1>Stocks!</h1>
-<table>
-  <tr><td>Name</td><td>Price</td></tr>
-  <% stocks.each do |name, value| %>
-    <tr>
-      <td><%= name %></td>
-      <td id="<%= "#{name.downcase}-price" %>"><%= value %></td>
-    </tr>
-  <% end %>
-</table>
+
+<% stocks.each do |name, value| %>
+<h2><%= name %></h2>
+<div id="<%= "#{name.downcase}-price" %>"><%= value %></div>
+<div id="<%= "#{name.downcase}" %>"></div>
+<% end %>
 <h2>Latest Notification</h2>
 <p id="notify" >None</p>
 
 <script>
   (function($){
-    var es = new EventSource('/stocks');
+
+    var es = new EventSource('/stocks')
+      , max = 20
+      , aapl= initChart('#aapl', 600)
+      , msft= initChart('#msft', 100)
+
 
     es.addEventListener('AAPL', function(e) {
       $('#aapl-price').innerText = e.data;
+
+      aapl.data.length === max && aapl.data.shift();
+      aapl.data.push({ data: e.data, time: ++aapl.time});
+      redrawChart(aapl);
     });
 
     es.addEventListener('MSFT', function(e) {
-      $('#msft-price').innerText = e.data;
+      var point = e.data;
+      if(point < 0) {
+        point = point * -1;
+      }
+      $('#msft-price').innerText = point;
+      msft.data.length === max && msft.data.shift();
+      msft.data.push({ data: point, time: ++msft.time});
+      redrawChart(msft);
     });
 
     //Notice that GOOG doesn't update
@@ -29,5 +42,49 @@
     es.onmessage = function(e) {
       $('#notify').innerText = e.data;
     };
+
+    function initChart(id, yMax) {
+       var chart = d3.select(id).append("svg")
+          .attr("class", "chart")
+          .attr("width", max * 20)
+          .attr("height", 140)
+        , x = d3.scale.linear().domain([0, 1]).range([0, 20])
+        , y = d3.scale.linear().domain([0, yMax]).rangeRound([0, 140]);
+
+        return { 
+          chart: chart,
+          x: x,
+          y: y,
+          data: [],
+          time: 0
+        }
+    }
+
+    function redrawChart(chart) {
+      var y = chart.y
+        , x = chart.x
+        , data = chart.data
+        , t = chart.time
+        , rect = chart.chart.selectAll("rect")
+            .data(data, function(d) { return d.time; });
+
+      rect.enter().insert("rect")
+      .attr("x", function(d, i) { if(data.length == max && t > max) { return x(i + 1); } return x(i); })
+        .attr("y", function(d) { return 140 - y(d.data); })
+        .attr("width", 20)
+        .attr("height", function(d) { return y(d.data); })
+      .transition()
+        .duration(500)
+        .attr("x", function(d, i) { return x(i) });
+
+        rect.transition()
+          .duration(500)
+          .attr("x", function(d, i) { return x(i); });
+
+          rect.exit().transition()
+            .duration(500)
+            .attr("x", function(d, i) { return x(i-1) })
+            .remove();
+    }
   })(function(id){return document.getElementById(id.replace('#',''))});
 </script>
