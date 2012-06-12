@@ -14,12 +14,18 @@
     var es = new EventSource('/stocks')
       , max = 20
       , aapl= initChart('#aapl', 600)
-      , msft= initChart('#msft', 100)
+      , msft= initChart('#msft', 100);
 
 
-    es.addEventListener('AAPL', createListener(aapl));
+    es.addEventListener('AAPL', function(e){
+      var value = Math.abs(e.data);
+      aapl.update(value);
+    });
 
-    es.addEventListener('MSFT', createListener(msft));
+    es.addEventListener('MSFT', function(e){
+      var value = Math.abs(e.data);
+      msft.update(value);
+    });
 
     //Notice that GOOG doesn't update
     //Because we didn't subscribe
@@ -28,33 +34,26 @@
       $('#notify').innerText = e.data;
     };
 
-    function createListener(chart) {
-      var el = $(chart.id + '-price');
-      return function(e) {
-        var point = Math.abs(e.data);
-        el.innerText = point;
-        chart.data.length === max && chart.data.shift();
-        chart.data.push({ data: point, time: ++chart.time});
-        redrawChart(chart);
-      };
-    }
-
     function initChart(id, yMax) {
-       var chart = d3.select(id).append("svg")
+      var self = {
+        chart: d3.select(id).append("svg")
           .attr("class", "chart")
           .attr("width", max * 20)
-          .attr("height", 140)
-        , x = d3.scale.linear().domain([0, 1]).range([0, 20])
-        , y = d3.scale.linear().domain([0, yMax]).rangeRound([0, 140]);
-
-        return { 
-          id: id,
-          chart: chart,
-          x: x,
-          y: y,
-          data: [],
-          time: 0
+          .attr("height", 140),
+        x: d3.scale.linear().domain([0, 1]).range([0, 20]),
+        y: d3.scale.linear().domain([0, yMax]).rangeRound([0, 140]),
+        priceEl: $(id + '-price'),
+        data: [],
+        time: 0,
+        update: function(val) {
+          self.priceEl.innerText = val;
+          self.data.length === max && self.data.shift();
+          self.data.push({ data: val, time: ++self.time});
+          redrawChart(self);
         }
+      };
+
+      return self;
     }
 
     function redrawChart(chart) {
