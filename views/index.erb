@@ -9,12 +9,12 @@
     <link href="styles/highlight.css" rel="stylesheet" />
   </head>
   <body>
+    <div id="follow-along">http://chumps.jxs.me</div>
     <div id="impress">
       <div id="title" class="step slide" data-x="0" data-y="-100" data-scale="3">
         <div class="big bold">
           <div id="title-polling">Polling</div>
           <div id="title-chumps">Is For Chumps</div>
-          <div id="follow-along">Follow along at http://polling4chumps.herokuapp.com</div>
         </div>
       </div>
 
@@ -285,25 +285,21 @@ ws.onclose = function () {
       </div>
       <div id="websockets-servercallbacks" class="step" data-x="600" data-y="1700" data-scale="0.2">
         <pre>
-        <code>var all = new List&lt;IWebSocketConnection>();
-var url = "ws://localhost:8181";
-var server = new WebSocketServer(url);
-server.Start(socket =>
-{
-  socket.OnOpen = () =>
-  {
-    all.Add(socket);
-  };
-  socket.OnClose = () =>
-  {
-    all.Remove(socket);
-  };
-  socket.OnMessage = message =>
-  {
-    all.ToList()
-      .ForEach(s => s.Send(message));
-  };
-});</code>
+        <code>@allSocks = []
+o = {port: 8080}
+EventMachine.run do
+  EventMachine::WebSocket.start(o) do |sock|
+    sock.onopen do
+      @allSocks << sock
+    end
+    sock.onmessage do |mess|
+      @allSocks.each {|s| s.send mess}
+    end
+    sock.onclose do
+      @allSocks.delete sock
+    end
+  end
+end</code>
         </pre>
       </div>
 
@@ -333,7 +329,8 @@ server.Start(socket =>
       <div id="websockets-ie" class="step" data-x="800" data-y="2080" data-z="120" data-scale="0.2">
         <div class="big bold subtitle">And There's Hope For IE</div>
         <img src="images/ie.png" />
-        <div>Flash Polyfill Now</div>
+        <div>Flash Polyfill Now </div>
+        <div><a href="https://github.com/gimite/web-socket-js">gimite/web-socket-js</a></div>
         <div>IE 10 Supports WebSockets</div>
       </div>
 
