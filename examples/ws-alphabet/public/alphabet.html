@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <title>WebSocket Example</title>
+    <style>
+      body {
+        background: #e9e9e9;
+        padding: 40px;
+        font-family: Georgia, Times New Roman, serif;
+      }
+
+      h1 {
+        margin-left: auto;
+        font-size: 5em;
+      }
+
+      #alphabet {
+        font-size: 5em;
+        width: 600px;
+        background: #FFFFFF;
+        border: solid 1px #ddd;
+        padding: 20px;
+        color: #ddd;
+      }
+      #alphabet span {
+        display: inline-block;
+        -webkit-transition: all 0.15s ease-in-out;
+        -moz-transition: all 0.15s ease-in-out;
+        -o-transition: all 0.15s ease-in-out;
+        -ms-transition: all 0.15s ease-in-out;
+        transition: all 0.15s ease-in-out;
+      }
+      .hit {
+        color: #222;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <h1>Mash Some Keys</h1>
+    <div id="alphabet">
+
+    <script>
+      (function($) {
+        var socket;
+        var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        function animateCharacter(letter)
+        {
+          var upper = letter.toUpperCase();
+          var el = $('#character_' + upper);
+          el.className = 'hit';
+          clearTimeout(el.timeout)
+          el.timeout = setTimeout(function(){
+            el.className = null;
+          }, 150);
+        }
+
+        function setup()
+        {
+          var target = $('#alphabet'),
+              inner = [];
+
+          for(var i = 0; i <=alphabet.length; i++)
+          {
+            var char = alphabet.charAt(i);
+            inner.push('<span id="character_' + char +'">' + char + '</span>');
+          }
+
+          target.innerHTML = inner.join('');
+
+          document.onkeypress = function(e){
+            var char = String.fromCharCode(e.keyCode);
+            socket.send(char);
+          };
+
+          connect();
+        };
+
+          function connect(){
+            socket = new WebSocket('ws://h.jxs.me:8080');
+            socket.onmessage = function(mess) {
+              animateCharacter(mess.data);
+            };
+
+          };
+
+          window.onload += setup();
+        })(function(id){return document.getElementById(id.replace('#',''))});
+      </script>
+  </body>
+</html>
